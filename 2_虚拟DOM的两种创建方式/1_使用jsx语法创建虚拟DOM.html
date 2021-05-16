@@ -18,10 +18,14 @@
 
 
     <script type="text/babel">  // 此处一定要将javascript改为babel，含义是让babel翻译script标签中的代码
-        // 1.创建虚拟DOM    
-        const VDOM = <h1>Hello,React</h1>   // 此处一定不要写引号，因为VDOM不是字符串!!!
-        // 2.使用react语法将VDOM转为真实DOM，插入页面
-        // ReactDOM.render(虚拟DOM,容器)  高版本两个参数进行了调整
+        // 1.创建虚拟DOM
+        const VDOM = (
+            <h1 id="title">
+                <span>Hello,React</span>
+            </h1>
+        )
+
+        // 2.渲染虚拟DOM到页面
         ReactDOM.render(VDOM, document.getElementById('test'))
     </script>
 </body>

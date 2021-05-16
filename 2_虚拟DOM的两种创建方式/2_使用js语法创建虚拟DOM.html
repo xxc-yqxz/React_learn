@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>hello_react</title>
+</head>
+
+<body>
+    <!-- 准备好一个容器，用于让react渲染用 -->
+    <div id="test"></div>
+    <!-- 引入react核心库，添加React元素 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom,用于支持react操作DOMs，添加ReactDOM元素 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+
+
+    <script type="text/javascript">  // 此处一定要将javascript改为babel，含义是让babel翻译script标签中的代码
+        // 1.创建虚拟DOM
+        // const VDOM = React.createElement(标签名,标签属性,标签体内容)
+        // 即使使用jsx来写，最终也会被翻译成以下代码
+        const VDOM = React.createElement('h1', { id: 'title' }, React.createElement('span', {}, 'Hello,react'))
+
+        // 2.渲染虚拟DOM到页面
+        // ReactDOM.render(虚拟DOM,容器) 。若容器不变，则写多条语句时会产生覆盖而不是叠加。
+        ReactDOM.render(VDOM, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

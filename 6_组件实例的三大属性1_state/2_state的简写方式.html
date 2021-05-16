@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>2_state的简写方式</title>
+</head>
+
+<body>
+    <!-- 准备好一个容器，用于让react渲染用 -->
+    <div id="test"></div>
+    <!-- 引入react核心库，添加React元素 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom,用于支持react操作DOMs，添加ReactDOM元素 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        // 1.定义组件----类式组件
+        class Weather extends React.Component {
+            state = { isHot: true, wind: '微风' }
+
+
+            // 这么写后，changeWeather成为实例对象的属性，而不是在原型对象上
+            // 箭头函数没有this,所以会往外找，找到实例对象的this
+            // 事件的回调都需要写成赋值语句+箭头函数的形式
+            changeWeather = () => {
+                const { isHot } = this.state
+
+                this.setState({ isHot: !isHot })
+            }
+
+            render() {
+                return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h1>
+            }
+        }
+
+
+        // 2.渲染组件
+        ReactDOM.render(<Weather />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

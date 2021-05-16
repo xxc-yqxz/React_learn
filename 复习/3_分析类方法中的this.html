@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        class Demo {
+            show() {
+                // ES6类中所有方法自动开启了严格模式
+                console.log('我是一些信息', this);
+            }
+        }
+        const d = new Demo()
+        const x = d.show
+        x() // undefined
+        d.show()
+        // console.log(Demo);
+    </script>
+</body>
+
+</html>
