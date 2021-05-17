@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>1_引出生命周期</title>
+</head>
+
+<body>
+    <!-- 准备好一个容器，用于让react渲染用 -->
+    <div id="test"></div>
+    <!-- 引入react核心库，添加React元素 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom,用于支持react操作DOMs，添加ReactDOM元素 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        // 定义组件
+        class Life extends React.Component {
+            // 生命周期 <=> 生命周期函数  <=>  生命周期钩子函数 <=>  生命周期钩子
+
+            state = { opacity: 0.5 }
+
+            death = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.timer)
+            }
+
+            // componentDidMount-- 组件挂载完毕后，有react去调用，只调用一次
+            componentDidMount() {
+                console.log('---componentDidMount---');
+                this.timer = setInterval(() => {
+                    // 获取原状态
+                    let { opacity } = this.state
+                    // 减小透明度的值
+                    opacity -= 0.1
+                    if (opacity <= 0) opacity = 1
+                    this.setState({ opacity })
+                }, 200)
+            }
+
+            // render -- 组件初次渲染+状态更新，由react去调用，只调1+n次
+            render() {
+                console.log('---render---');
+                // 获取透明度
+                const { opacity } = this.state
+                return (
+                    <div>
+                        <h1 style={{ opacity }}>分手了，怎么办?</h1>
+                        <button onClick={this.death}>不活了</button>
+                    </div>
+                )
+            }
+        }
+        // 渲染组件
+        ReactDOM.render(<Life />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

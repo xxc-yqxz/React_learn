@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>5_演示getSnapshotBeforeUpdate的使用场景</title>
+    <style>
+        .wraper {
+            width: 200px;
+            height: 150px;
+            background-color: orange;
+            overflow: auto;
+        }
+
+        .news {
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 准备好一个容器，用于让react渲染用 -->
+    <div id="test"></div>
+    <!-- 引入react核心库，添加React元素 -->
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <!-- 引入react-dom,用于支持react操作DOMs，添加ReactDOM元素 -->
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+
+    <script type="text/babel">
+        class News extends React.Component {
+
+            state = {
+                newsArr: []
+            }
+
+            componentDidMount() {
+                setInterval(() => {
+                    const { newsArr } = this.state
+                    const news = '新闻' + (newsArr.length + 1)
+                    this.setState({ newsArr: [news, ...newsArr] })
+                }, 1000)
+            }
+
+            getSnapshotBeforeUpdate() {
+                return this.refs.wraper.scrollHeight
+            }
+
+            componentDidUpdate(a, b, preHeight) {
+                this.refs.wraper.scrollTop += this.refs.wraper.scrollHeight - preHeight
+            }
+
+            render() {
+                return (
+                    <div className="wraper" ref="wraper">
+                        {
+                            this.state.newsArr.map((n, index) => {
+                                return <div key={index} className="news">{n}</div>
+                            })
+                        }
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<News />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

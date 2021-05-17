@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title></title>3_组件间关系说明< /title>
+</head>
+
+<body>
+    <!-- 准备好一个容器，用于让react渲染用 -->
+    <div id="test"></div>
+    <!-- 引入react核心库，添加React元素 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom,用于支持react操作DOMs，添加ReactDOM元素 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        // A和B是父子组件，A和C是祖孙组件
+        // 定义组件
+        class A extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <h2>我是A组件的内容</h2>
+                        <B />
+                    </div>
+                )
+            }
+        }
+        class B extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <h2>我是B组件的内容</h2>
+                        <C />
+                    </div>
+                )
+            }
+        }
+        class C extends React.Component {
+            render() {
+                return (
+                    <div>
+                        <h2>我是C组件的内容</h2>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<A />, document.getElementById('test'))
+    </script>
+
+</body>

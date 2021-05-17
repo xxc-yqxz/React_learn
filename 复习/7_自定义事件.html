@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo1">盒子1</div>
+    <div id="demo2">盒子2</div>
+    <div id="demo3">盒子3</div>
+    <button id="btn">点我</button>
+    <script type="text/javascript">
+        const btn = document.getElementById('btn')
+        const demo1 = document.getElementById('demo1')
+        const demo2 = document.getElementById('demo2')
+        const demo3 = document.getElementById('demo3')
+
+        const myEvent = new Event('haha')
+
+        demo1.addEventListener('haha', () => {
+            console.log('demo1');
+        })
+        demo2.addEventListener('haha', () => {
+            console.log('demo2');
+        })
+        demo3.addEventListener('haha', () => {
+            console.log('demo3');
+        })
+
+        btn.addEventListener('click', () => {
+            demo1.dispatchEvent(myEvent)
+            demo2.dispatchEvent(myEvent)
+            demo3.dispatchEvent(myEvent)
+        })
+    </script>
+</body>
+
+</html>
