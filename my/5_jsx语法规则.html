@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+        .demo1 {
+            background-color: gray;
+            color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 准备好一个容器，用于让react渲染用 -->
+    <div id="test"></div>
+    <!-- 引入react核心库，添加React元素 -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom,用于支持react操作DOMs，添加ReactDOM元素 -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <script type="text/babel">
+        const myID = 'AtGuIgU'
+        const myData = 'HeLlo,rEaCT'
+
+        const VDOM = (
+            <div>
+                <h2 id="{myID.toLowerCase()}" className="demo1">
+                    <span>{myData.toUpperCase()}</span>
+                </h2>
+                <h2 style={{ backgroundColor: 'skyblue', color: 'red' }}>hello,0826</h2>
+                <input type="text" />
+            </div>
+        )
+
+        ReactDOM.render(VDOM, document.getElementById('test'))
+    </script>
+</body>
+
+</html>
