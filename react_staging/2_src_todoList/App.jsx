@@ -61,6 +61,7 @@ export default class App extends Component {
         this.setState({ todos: newTodos })
     }
 
+    // 删除已完成
     clearAllDone = () => {
         const { todos } = this.state
         const newTodos = todos.filter((t) => {

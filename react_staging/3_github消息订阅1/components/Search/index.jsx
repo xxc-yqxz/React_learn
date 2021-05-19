@@ -7,6 +7,8 @@ export default class Search extends Component {
         const { keyWord } = this
         // 请求之前要:将isLoading变为true，将isFirst变为false
         this.props.updateAppState({ isLoading: true, isFirst: false })
+
+        // 使用axios请求
         axios.get(`http://localhost:3000/search/users?q=${keyWord.value}`).then(
             response => {
                 console.log('成功了', response.data)
@@ -20,6 +22,8 @@ export default class Search extends Component {
                 this.props.updateAppState({ isLoading: false, errorMsg: error.message })
             }
         )
+
+
     }
 
     render() {
