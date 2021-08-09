@@ -27,7 +27,7 @@
             }
             // changeWeather调用几次？  ------ 看你点几次
             changeWeather() {
-                // 若构造器不做处理，下面的this是undefined，因为changeWeather不是通过实例调用的，而是作为点击的回调去使用(window)，且类中的方法自动开启了严格模式
+                // 若构造器不做处理，下面的this是undefined，因为changeWeather不是通过实例调用的，而是作为点击的回调去使用(window)，且类中的方法自动开启了局部的严格模式
                 // console.log('changeWeather的this是', this);
                 /* 
                 // 必须注意：状态(state)中的值是不能直接修改的!!!! 下面这一行就是直接修改
