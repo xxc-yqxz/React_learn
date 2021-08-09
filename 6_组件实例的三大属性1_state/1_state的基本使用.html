@@ -23,6 +23,7 @@
                 console.log('constructor');
                 super(props)
                 this.state = { isHot: true, wind: '微风' }    // 初始化状态，isHot用于标识天气热不热
+                // bind会返回一个跟调用它的函数一样的函数，并将返回的函数this指向改为bind的参数
                 this.changeWeather = this.changeWeather.bind(this)   // 解决this指向问题
             }
             // changeWeather调用几次？  ------ 看你点几次
