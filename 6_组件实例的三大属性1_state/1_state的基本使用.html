@@ -45,7 +45,7 @@
             // render调用几次？   ----- 1+n次(n是更新状态的次数)
             render() {
                 // console.log('render的this是', this);
-                // 注意此处React将onclick改成了onClick，且onClick等号右边需为函数
+                // 注意此处React将onclick改成了onClick，且onClick等号右边需为函数名，而不是函数回调
                 return <h1 onClick={this.changeWeather}>今天天气很{this.state.isHot ? '炎热' : '凉爽'}</h1>
             }
         }
