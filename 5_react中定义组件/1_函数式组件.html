@@ -18,6 +18,7 @@
 
     <script type="text/babel">
         // 1.定义组件(函数式组件)
+        // 注意此处函数名也要大写，为了满足React组件规范
         function MyComponent() {
             console.log(this);  // 此处的this是undefined,因为经过babel的编译后，开启了严格模式。
             return <h2>我是用函数定义的组件(适用于【简单组件】的定义)</h2>
@@ -28,6 +29,7 @@
         }
 
         // 2.渲染组件到页面
+        // 注意此处标签必须闭合
         ReactDOM.render(<MyComponent />, document.getElementById('test'))
         ReactDOM.render(<MyComponent2 />, document.getElementById('test2'))
         /*
