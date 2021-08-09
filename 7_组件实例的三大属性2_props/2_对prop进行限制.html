@@ -39,6 +39,8 @@
             render() {
                 // console.log(this);
                 const { name, age, sex, address } = this.props
+                // this.props.name='Jack'   //此行代码会报错，因为props是只读的
+                
                 return (
                     <ul>
                         <li>姓名：{name}</li>
