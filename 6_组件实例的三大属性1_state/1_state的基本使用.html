@@ -40,6 +40,7 @@
                 const { isHot } = this.state
 
                 // 更新状态
+                // 此处的setState一但调用，就会重新执行一次render()
                 this.setState({ isHot: !isHot })      // 此处更新状态是一个合并的动作，不是替换
             }
 
