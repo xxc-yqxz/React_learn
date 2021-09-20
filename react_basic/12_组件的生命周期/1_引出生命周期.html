@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高阶函数_函数柯里化</title>
+</head>
+
+<body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+    <!-- 引入react核心库，全局多了React -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM，全局多了ReactDOM -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+
+    <script type="text/babel">
+        // 创建组件
+        // 生命周期回调函数
+        class Life extends React.Component {
+
+            state = { opacity: 0.5 }
+
+            death = () => {
+                // 清除定时器，若不清除而直接卸载组件会导致定时器内部还在修改一个已卸载的组件的state
+                // 也可以写在componentWillUnMount
+                // clearInterval(this.timer)
+                // 卸载组件
+                ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+            }
+
+            // 调用的时机：组件挂载完毕
+            componentDidMount() {
+                // 若把定时器写在render中，会导致opacity一改变页面就重新渲染，重新调用render，再开启一个定时器，导致定时器不断增加。
+                this.timer = setInterval(() => {
+                    // 获取原状态
+                    let { opacity } = this.state
+                    // 减小0.1
+                    opacity -= 0.1
+                    if (opacity <= 0) opacity = 1
+                    // 设置新的透明度
+                    this.setState({ opacity })
+                }, 200);
+            }
+
+            // render调用的时机：初始化渲染、状态更新之后
+            render() {
+                return (
+                    <div>
+                        <h2 style={{ opacity: this.state.opacity }}>React学不会怎么办？</h2>
+                        <button onClick={this.death}>不活了</button>
+                    </div>
+                )
+            }
+
+            // 组件将要卸载
+            componentWillUnmount() {
+                clearInterval(this.timer)
+            }
+        }
+        // 渲染组件
+        ReactDOM.render(<Life />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

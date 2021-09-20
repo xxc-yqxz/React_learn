@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2_不用函数柯里化的实现</title>
+</head>
+
+<body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+    <!-- 引入react核心库，全局多了React -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM，全局多了ReactDOM -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <!-- 引入prop-types，用于对组件标签属性进行限制,全局多了PropTypes-->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+
+    <script type="text/babel">
+        class Login extends React.Component {
+            state = {
+                username: '',   // 用户名
+                password: ''    // 密码
+            }
+
+            saveFormData = (dataType, value) => {
+                this.setState({ [dataType]: event.target.value })
+            }
+            handleSubmit = (event) => {
+                event.preventDefault();
+                const { username, password } = this.state
+                alert(`你输入的用户名是${username},你输入的密码是${password}`)
+            }
+            render() {
+                return (
+                    <form action="https://blog.xxcijmz.top" onSubmit={this.handleSubmit}>
+                        用户名:<input onChange={(event) => this.saveFormData('username', event)} type="text" name="username" />
+                        密码:<input onChange={(event) => this.saveFormData('password', event)} type="password" name="password" />
+                        <button>登录</button>
+                    </form>
+                )
+            }
+        }
+        ReactDOM.render(<Login />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

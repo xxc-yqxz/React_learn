@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1_字符串形式的ref</title>
+</head>
+
+<body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+    <!-- 引入react核心库，全局多了React -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM，全局多了ReactDOM -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script type="text/javascript" src="../js/babel.min.js"></script>
+    <!-- 引入prop-types，用于对组件标签属性进行限制,全局多了PropTypes-->
+    <script type="text/javascript" src="../js/prop-types.js"></script>
+
+    <script type="text/babel">
+        // 创建组件
+        class Demo extends React.Component {
+
+            state = { isHot: true }
+
+            showInfo = () => {
+                // 函数体
+                const { input1 } = this
+                alert(input1.value)
+            }
+
+            changeWeather = () => {
+                // 获取原来的状态
+                const { isHot } = this.state
+                // 更新状态
+                this.setState({ isHot: !isHot })
+            }
+
+            saveInput = (currentNode) => {
+                this.input1 = currentNode;
+                console.log('@', currentNode)
+            }
+
+            render() {
+                const { isHot } = this.state
+                return (
+                    <div>
+                        <div>今天天气很{isHot ? '炎热' : '凉爽'}</div>
+                        {/*此处当页面重新渲染时，currentNode会先传入一个null，将原本的节点清空。之后再传入当前的节点*/}
+                        {/*<input ref={(currentNode) => { this.input1 = currentNode; console.log('@', currentNode) }} type="text" />*/}
+
+                        {/*此种写法，会导致saveInput只在页面初次渲染时执行一次，之后再执行render不会再执行*/}
+                        <input ref={this.saveInput} type="text" />
+                        <button onClick={this.showInfo}>点我提示输入的数据</button><br />
+                        <button onClick={this.changeWeather}>点我切换天气</button><br />
+                    </div>
+                )
+            }
+        }
+        // 渲染组件到页面
+        ReactDOM.render(<Demo />, document.getElementById('test'))
+    </script>
+</body>
+
+</html>

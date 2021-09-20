@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2_使用js创建虚拟DOM</title>
+</head>
+
+<body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+
+    <!-- 引入react核心库，全局多了React -->
+    <script type="text/javascript" src="../js/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM，全局多了ReactDOM -->
+    <script type="text/javascript" src="../js/react-dom.development.js"></script>
+
+    <script type="text/javascript">
+        // 1.创建虚拟DOM
+        // const VDOM = React.createElement(标签名, 标签属性, 标签内容);
+        // const VDOM = React.createElement('h1', { id: 'title' }, '<span>Hello,React</span>');  // 此种写法无法达成效果
+        const VDOM = React.createElement('h1', { id: 'title' }, React.createElement('span', {}, 'Hello,React'));
+        // 2.渲染虚拟DOM到页面
+        ReactDOM.render(VDOM, document.getElementById('test'))   // 此处React没有提供选择器语法，需要自己获取DOM节点
+    </script>
+</body>
+
+</html>

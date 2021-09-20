@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3_react生命周期(新)</title>
+</head>
+
+<body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+    <!-- 引入react核心库，全局多了React -->
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM，全局多了ReactDOM -->
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+
+    <script type="text/babel">
+        class Count extends React.Component {
+
+            constructor(props) {
+                console.log('Count-constructor');
+                super(props)
+                this.state = { count: 0 }
+            }
+
+            add = () => {
+                const { count } = this.state
+                this.setState({ count: count + 1 })
+            }
+
+            death = () => {
+                ReactDOM.unmountComponentAtNode(document.getElementById('test'))
+            }
+
+            force = () => {
+                this.forceUpdate()
+            }
+
+            static getDerivedStateFromProps(props, state) {
+                return null;
+            }
+
+            /* getSnapshotBeforeUpdate() 在最近一次渲染输出（提交到 DOM 节点）之前调用。它使得组件能在发生更改之前从 DOM 中捕获一些信息（例如，滚动位置）。此生命周期方法的任何返回值将作为参数传递给 componentDidUpdate()。 */
+            // 在更新之前获取快照
+            getSnapshotBeforeUpdate() {
+                console.log('getSnapshotBeforeUpdate');
+                // 此处要求A snapshot value (or null) must be returned. 其中snapshot value可以为任何值
+                return 'atguigu';
+            }
+
+            componentDidMount() {
+                console.log('Count-componentDidMount');
+            }
+
+            componentWillUnmount() {
+                console.log('Count-componentWillUnmount');
+            }
+
+            shouldComponentUpdate() {
+                console.log('Count-shouldComponentUpdate');
+                return true
+            }
+
+            // componentDidUpdate传递三个参数，preProps：之前的props，preState：之前的state，snapshotValue：快照值，及getSnapshotBeforeUpdate返回的值。
+            componentDidUpdate(preProps, preState, snapshotValue) {
+                console.log('Count-componentDidUpdate', preProps, preState);
+            }
+
+            render() {
+                console.log('Count-render');
+                const { count } = this.state
+                return (
+                    <div>
+                        <h2>当前求和为{count}</h2>
+                        <button onClick={this.add}>点我+1</button>
+                        <button onClick={this.death}>卸载组件</button>
+                        <button onClick={this.force}>不更改任何状态中的数据，强制更新一下</button>
+                    </div>
+                )
+            }
+        }
+        ReactDOM.render(<Count count={199} />, document.getElementById('test'))
+    </script>
+</body>

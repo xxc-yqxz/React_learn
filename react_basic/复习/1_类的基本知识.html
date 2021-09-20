@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1_类的基本知识</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        /*
+            总结：
+                1.类中的构造器不是必须写的，要对实例进行一些初始化的操作，如添加指定属性时，才写。
+                2.如果A类继承了B类，且A类中写了构造器，那么A类构造器中super是必须要调用的。
+                3.类中所定义的方法（以类名(){}的形式），都是放在了类的原型对象上，供实例去使用。
+        */
+        // 创建一个Person类
+        class Person {
+            // 构造器方法
+            constructor(name, age) {
+                // 构造器中的this是谁？ -- 类的实例对象
+                this.name = name;
+                this.age = age;
+            }
+            // 一般方法
+            speak() {
+                // speak方法放在了哪里？ -- 类的原型对象上
+                // 通过Person实例调用speak时，speak中的this就是Person实例
+                console.log(`我叫${this.name}，我的年龄是${this.age}`);
+            }
+        }
+
+        // 创建一个Student类，继承于Person类
+        class Student extends Person {
+            constructor(name, age, grade) {
+                super(name, age);    // 此处写了构造器，则必须要写super();且得在最开始调用。
+                this.grade = grade;
+            }
+            // 重写从父类中继承的方法
+            speak() {
+                console.log(`我叫${this.name}，我的年龄是${this.age}，我读的是${this.grade}年级`)
+            }
+            // study方法放在了哪里？ -- 类的原型对象上
+            // 通过Person实例调用study时，study中的this就是Person实例
+            study() {
+                console.log('我很努力的学习');
+            }
+        }
+
+        class Car {
+            constructor(name, price) {
+                this.name = name
+                this.price = price
+                this.wheel = 4
+            }
+            // 类中可以直接写赋值语句，如下代码的含义是：给Car的实例对象添加一个属性，名为a，值为1
+            a = 1
+        }
+
+        const c1 = new Car('奔驰c63', 199)
+        const c2 = new Car('宝马', 299)
+    </script>
+</body>
+
+</html>
